@@ -43,3 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Darkness
+    uniqueID: 3244548691
+    locked: 0
+  - name: Fade
+    uniqueID: 3205051361
+    locked: 0

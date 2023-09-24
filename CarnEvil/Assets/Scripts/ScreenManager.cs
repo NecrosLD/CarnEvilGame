@@ -16,10 +16,12 @@ public class ScreenManager : MonoBehaviour
     
     public TMP_Text ScreenTitle;
 
+    public GameObject FadeInObject;
+
     private void Start()
     {
-        ScreenSwitch("Park Entrance");
-    }
+        StartCoroutine(ScreenSwitch("Park Entrance"));
+    }   
 
     public void Update()
     {
@@ -31,7 +33,7 @@ public class ScreenManager : MonoBehaviour
 
             if(hit && hit.transform.tag == "Door")
             {
-                ScreenSwitch(hit.transform.GetComponent<DoorScript>().NextAreaName);
+                StartCoroutine(ScreenSwitch(hit.transform.GetComponent<DoorScript>().NextAreaName));               
             }
             else if(hit && hit.transform.tag == "Item")
             {
@@ -40,9 +42,29 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
-    public void ScreenSwitch(string ScreenName)
+    public IEnumerator ScreenSwitch(string ScreenName)
     {
-        for(int i = 0; i < Screens.Length; i++)
+        Color objectColor = FadeInObject.GetComponent<Image>().color;
+        float FadeAmount;
+        int fadeSpeed = 5;
+
+
+        //Fade Out
+        while (FadeInObject.GetComponent<Image>().color.a < 1)
+        {
+            FadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, FadeAmount);
+
+            FadeInObject.GetComponent<Image>().color = objectColor;
+
+            yield return null;
+        }
+
+        //-------------------------------------------------------
+
+        //Screen Change
+        for (int i = 0; i < Screens.Length; i++)
         {
             int index = i;
 
@@ -58,7 +80,23 @@ public class ScreenManager : MonoBehaviour
             {
                 Screens[index].gameObject.SetActive(false);
             }
-            
+
+        }
+
+        //-------------------------------------------------------
+
+        //Fade In
+        while (FadeInObject.GetComponent<Image>().color.a > 0)
+        {
+            FadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, FadeAmount);
+
+            FadeInObject.GetComponent<Image>().color = objectColor;
+
+            yield return null;
         }
     }
+
+
 }
