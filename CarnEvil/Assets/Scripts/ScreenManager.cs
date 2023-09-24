@@ -18,6 +18,8 @@ public class ScreenManager : MonoBehaviour
 
     public GameObject FadeInObject;
 
+    public DoorScript CarriageObject;
+
     private void Start()
     {
         StartCoroutine(ScreenSwitch("Park Entrance"));
@@ -38,6 +40,33 @@ public class ScreenManager : MonoBehaviour
             else if(hit && hit.transform.tag == "Item")
             {
 
+            }
+            else if(hit && hit.transform.tag == "CarriageButton")
+            {
+                switch (hit.transform.GetComponent<CarriageButton>().CarriageNumber)
+                {
+                    case 5:
+                        CarriageObject.NextAreaName = "Carriage 6";
+                        break;
+                    case 4:
+                        CarriageObject.NextAreaName = "Carriage 5";
+                        break;
+                    case 3:
+                        CarriageObject.NextAreaName = "Carriage 4";
+                        break;
+                    case 2:
+                        CarriageObject.NextAreaName = "Carriage 3";
+                        break;
+                    case 1:
+                        CarriageObject.NextAreaName = "Carriage 2";
+                        break;
+                    case 0:
+                        CarriageObject.NextAreaName = "Carriage 1";
+                        break;
+                    default:
+                        CarriageObject.NextAreaName = "Carriage 1";
+                        break;
+                }
             }
         }
     }
