@@ -35,13 +35,16 @@ public class SkiBall : MonoBehaviour
             DragBall();
         }
     }
-
+    //this is the "power" bar for how far you can drag the ball
     private void DragBall() {
         SetlineRendererPositions();
 
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float distance = Vector2.Distance(mousePosition, slingRb.position);
 
+
+        //Above lets the player click and drag the ball
+        //Below locks how far the mouse can drag the ball
 
         if(distance > maxDragDistance) {
             Vector2 direction = (mousePosition - slingRb.position).normalized;
@@ -53,6 +56,7 @@ public class SkiBall : MonoBehaviour
         
     }
 
+    //this is the trail
     private void SetlineRendererPositions() {
         Vector3[] positions = new Vector3[2];
         positions[0] = rb.position;
