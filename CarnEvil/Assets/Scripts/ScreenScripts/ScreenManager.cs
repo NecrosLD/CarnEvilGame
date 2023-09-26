@@ -20,6 +20,8 @@ public class ScreenManager : MonoBehaviour
 
     public DoorScript CarriageObject;
 
+    public InventoryScript IS;
+
     private void Start()
     {
         StartCoroutine(ScreenSwitch("Park Entrance"));
@@ -39,7 +41,7 @@ public class ScreenManager : MonoBehaviour
             }
             else if(hit && hit.transform.tag == "Item")
             {
-
+                StartCoroutine(ItemPickup(hit.transform.gameObject));
             }
             else if(hit && hit.transform.tag == "CarriageButton")
             {
@@ -69,6 +71,23 @@ public class ScreenManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator ItemPickup(GameObject Item)
+    {
+
+        if(IS.Inventory.Count == 6)
+        {
+            Debug.Log("Cannot pickup Item");
+        }
+        else
+        {
+            IS.AddItemToInventory(Item);
+
+            Destroy(Item);            
+        }
+
+        yield return null;
     }
 
     public IEnumerator ScreenSwitch(string ScreenName)
