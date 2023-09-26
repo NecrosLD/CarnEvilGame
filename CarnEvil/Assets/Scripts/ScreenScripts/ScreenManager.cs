@@ -97,6 +97,7 @@ public class ScreenManager : MonoBehaviour
         int fadeSpeed = 5;
 
 
+
         //Fade Out
         while (FadeInObject.GetComponent<Image>().color.a < 1)
         {
@@ -120,8 +121,15 @@ public class ScreenManager : MonoBehaviour
             {
                 Screens[index].gameObject.SetActive(true);
 
-                //BackgroundImage.sprite = Backgrounds[index];
-
+                if (Backgrounds[index] != null)
+                {
+                    BackgroundImage.sprite = Backgrounds[index];
+                }
+                else
+                {
+                    BackgroundImage.sprite = null;
+                }
+                           
                 ScreenTitle.text = ScreenName;
             }
             else
