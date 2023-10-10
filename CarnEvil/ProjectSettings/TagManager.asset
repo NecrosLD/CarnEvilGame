@@ -7,6 +7,9 @@ TagManager:
   - Door
   - Item
   - CarriageButton
+  - Button_Fire
+  - Button_Sound
+  - Button_Movement
   layers:
   - Default
   - TransparentFX
